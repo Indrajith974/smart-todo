@@ -13,3 +13,7 @@ export const getContextEntries = () => api.get('/context/');
 
 export const createTask = (data: any) => api.post('/tasks/', data);
 export const createContextEntry = (data: any) => api.post('/context/', data);
+
+// Export / Import tasks
+export const exportTasks = () => api.get('/tasks/export/');
+export const importTasks = (tasksJson: any) => api.post('/tasks/import_tasks/', tasksJson);
