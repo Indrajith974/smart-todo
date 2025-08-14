@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
 import { usePathname } from 'next/navigation';
 import { HomeIcon, PlusCircleIcon, SparklesIcon } from '@heroicons/react/24/outline';
 
@@ -31,6 +32,9 @@ export default function Navbar() {
           </li>
         ))}
       </ul>
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }

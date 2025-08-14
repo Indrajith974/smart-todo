@@ -25,6 +25,14 @@ npm install
 npm run dev  # http://localhost:3000
 ```
 
+## Features
+
+* Responsive glass UI with light / dark mode toggle (preferences saved).
+* Quick add tasks, AI priority indicator, detailed modal view.
+* Import / Export tasks as JSON from the dashboard.
+* RESTful API powered by Django REST Framework.
+* Upcoming deadlines sidebar & stats bar.
+
 ## Environment Variables
 
 Frontend reads `NEXT_PUBLIC_API_BASE` (defaults to `http://localhost:8000`).

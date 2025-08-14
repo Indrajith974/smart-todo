@@ -44,7 +44,25 @@ class TaskViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(tasks, many=True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'])
+    def export(self, request):
+        """Export all tasks as JSON list"""
+        tasks = self.get_queryset()
+        serializer = self.get_serializer(tasks, many=True)
+        return Response(serializer.data)
+
     @action(detail=False, methods=['post'])
+    def import_tasks(self, request):
+        """Import tasks from JSON list"""
+        tasks_data = request.data if isinstance(request.data, list) else request.data.get('tasks', [])
+        created = 0
+        for item in tasks_data:
+            ser = self.get_serializer(data=item)
+            if ser.is_valid():
+                ser.save()
+                created += 1
+        return Response({'created': created}, status=status.HTTP_201_CREATED)
+
     def bulk_prioritize(self, request):
         """Bulk update task priorities"""
         task_priorities = request.data.get('task_priorities', [])

@@ -23,6 +23,47 @@ export default function Dashboard() {
           <HeroGreeting />
           <StatsBar tasks={tasks} />
           <QuickAddForm onCreated={refresh} />
+
+          {/* Export / Import */}
+          <div className="flex gap-4">
+            <button
+              onClick={async () => {
+                const res = await (await import('@/utils/api')).exportTasks();
+                const blob = new Blob([JSON.stringify(res.data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'tasks_export.json';
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+              className="glass px-4 py-2 text-sm hover:bg-white/10"
+            >
+              Export JSON
+            </button>
+
+            <label className="glass px-4 py-2 text-sm cursor-pointer hover:bg-white/10">
+              Import JSON
+              <input
+                type="file"
+                accept="application/json"
+                className="hidden"
+                onChange={async (e) => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  const text = await file.text();
+                  try {
+                    const json = JSON.parse(text);
+                    await (await import('@/utils/api')).importTasks(json);
+                    alert('Imported successfully');
+                    refresh();
+                  } catch (err) {
+                    alert('Invalid JSON');
+                  }
+                }}
+              />
+            </label>
+          </div>
           {tasks.length === 0 && (
             <p className="text-white/70">You have no tasks yet. Try adding one!</p>
           )}
