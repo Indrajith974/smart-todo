@@ -57,10 +57,6 @@ Backend uses `.env` for database and any API keys.
 * `/tasks/create` – full task creation form.
 * `/context/input` – add context entry.
 
-## Screenshots
-
-Add screenshots of dashboard & mobile view in `docs/screens/`.
-
 ## Contributing
 
 1. Fork & clone.
