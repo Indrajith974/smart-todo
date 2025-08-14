@@ -1,0 +1,12 @@
+
+# Python
+backend/.venv/
+*.py[cod]
+
+# Node
+frontend/node_modules/
+
+# OS / editors
+.DS_Store
+.env
+
